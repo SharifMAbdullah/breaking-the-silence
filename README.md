@@ -4,13 +4,15 @@ This repository contains code and experiments from the paper **"Breaking the Sil
 
 ### What is This Project About?
 
-**Sign language** is used by deaf people to communicate. **Bangla Sign Language (BdSL)** is the sign language used in Bangladesh. The problem is that sign language is very different from written Bangla—yit can't capture the grammatical nuances of Bangla.
+**Sign language** is used by deaf people to communicate. **Bangla Sign Language (BdSL)** is the sign language used in Bangladesh. The problem is that sign language is very different from written Bangla as it can't capture the grammatical nuances of Bangla.
 
 **Gloss** is a simplified, middle-ground representation. It's not full Bangla, but it's the simplified representation of Sign Language. 
 It wokrs as a bridge between sign language and written text. For example:
 
 The Bangla sentence: `আমি বৃষ্টিতে ছাতা নিয়ে বাইরে যাই`    
 The gloss would be: `আমি বৃষ্টি ছাতা নিয়ে আসা বাইরে যাওয়া`
+<img width="1209" height="506" alt="t2g" src="https://github.com/user-attachments/assets/2719ca55-66d0-4f4c-87a7-b5f98b0c43ce" />
+
 
 This project:
 1. **Generates synthetic gloss** (artificial gloss data) using NVIDIA NeMo Data Designer
@@ -68,7 +70,7 @@ Before running this code, ensure you have:
 
 ---
 
-## Advices for Running the Codes
+## 💡 Advices for Running the Codes
 
 Though you can use jupyter to run the notebooks, we recommend using
 Google Colab to replicate our results, specifically the `2026-02-23` version
