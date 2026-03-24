@@ -2,157 +2,20 @@
 
 ## 📋 Project Overview
 
-This repository contains code and experiments from the paper **"Breaking the Silence: Improving Bangla Sign Language Translation with Synthetic Gloss"** ([arXiv:2504.02293](https://arxiv.org/abs/2504.02293)).
+This repository contains code and experiments from the paper **"Breaking the Silence: A Dataset and Benchmark for Bangla Text-to-Gloss Translation"** ([arXiv:2504.02293](https://arxiv.org/abs/2504.02293)).
 
-### What This Project Does (In Simple Terms)
+### What is This Project About?
 
-**Sign language** is used by deaf people to communicate. **Bangla Sign Language (BdSL)** is the sign language used in Bangladesh. The problem is that sign language is very different from written Bangla—you can't just translate signs directly into Bangla sentences.
+**Sign language** is used by deaf people to communicate. **Bangla Sign Language (BdSL)** is the sign language used in Bangladesh. The problem is that sign language is very different from written Bangla—yit can't capture the grammatical nuances of Bangla.
 
-**Gloss** is like a simplified, middle-ground representation. It's not full Bangla, but it's simpler than actual sign language. Think of it as a bridge between sign language and written text.
+**Gloss** is a simplified, middle-ground representation. It's not full Bangla, but it's the simplified representation of Sign Language. 
+It wokrs as a bridge between sign language and written text.
 
 This project:
 1. **Generates synthetic gloss** (artificial gloss data) using NVIDIA NeMo Data Designer
 2. **Combines synthetic gloss with human-written gloss** to create a larger training dataset
 3. **Fine-tunes language models** on this combined data to improve their ability to translate sign language to Bangla
 4. **Compares different models** (both open-source and commercial) to see which performs best
-
----
-
-## 🎯 Key Results
-
-After testing and evaluation, here's how different models performed:
-
-| Model | Performance |
-|-------|-------------|
-| **Gemini-3** (Google's closed-source) | 🏆 Best in human evaluation |
-| **GPT-5.4** (OpenAI's closed-source) | Best in automatic metrics (BLEU, ChrF) |
-| **Fine-tuned Qwen** (Our fine-tuned open-source) | Nearly as good as Gemini; best open-source model |
-| **mBART** (Our fine-tuned open-source) | Strong performance with only 800M parameters |
-
-**What this means:** Our approach successfully improved open-source models to compete with expensive commercial APIs!
-
----
-
-## 🛠️ Prerequisites
-
-Before running this code, ensure you have:
-
-- **Python 3.8 or higher**
-- **GPU** (NVIDIA CUDA-capable GPU recommended for faster training)
-- **pip** (Python package manager)
-
-### Optional but Recommended:
-- Familiarity with Jupyter Notebooks (all code is in `.ipynb` format)
-- API keys for:
-  - OpenAI GPT API (to reproduce GPT-5.4 results)
-  - Google Gemini API (to reproduce Gemini-3 results)
-
----
-
-## 📁 Repository Structure
-
-```
-breaking-the-slience/
-├── README.md                    # This file
-├── codes/                       # All Jupyter notebooks for the project
-│   ├── synthetic_gloss_generation.ipynb      # Generate synthetic gloss using NeMo
-│   ├── data_preparation.ipynb                # Prepare and combine datasets
-│   ├── finetune_qwen.ipynb                   # Fine-tune Qwen model
-│   ├── finetune_mbart.ipynb                  # Fine-tune mBART model
-│   ├── evaluate_models.ipynb                 # Evaluate all models
-│   └── api_comparison.ipynb                  # Compare with commercial APIs
-└── data/                        # Data files (will be created/populated)
-    ├── human_annotated/         # Original human-written gloss data
-    ├── synthetic/               # Generated synthetic gloss
-    ├── combined/                # Merged dataset
-    └── results/                 # Evaluation results and metrics
-```
-
----
-
-## 🚀 Quick Start Guide
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/SharifMAbdullah/breaking-the-slience.git
-cd breaking-the-slience
-```
-
-### Step 2: Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-*Note: If `requirements.txt` doesn't exist yet, you'll need to install key packages:*
-
-```bash
-pip install jupyter torch transformers datasets evaluate bert-score nvidia-nemo[nlp] openai google-generativeai pandas numpy scikit-learn matplotlib seaborn
-```
-
-### Step 3: Run Notebooks in Order
-
-Open Jupyter Notebook:
-
-```bash
-jupyter notebook
-```
-
-Then execute notebooks in this sequence:
-
-1. **`codes/synthetic_gloss_generation.ipynb`** - Generates synthetic gloss data
-   - Uses NVIDIA NeMo to create artificial gloss examples
-   - Expected output: `data/synthetic/` folder with generated data
-
-2. **`codes/data_preparation.ipynb`** - Prepares datasets
-   - Combines human-annotated and synthetic data
-   - Creates train/validation/test splits
-   - Expected output: `data/combined/` folder
-
-3. **`codes/finetune_qwen.ipynb`** - Fine-tunes Qwen model (Open-source)
-   - Trains Qwen on combined dataset
-   - Expected output: Trained model checkpoint + performance metrics
-
-4. **`codes/finetune_mbart.ipynb`** - Fine-tunes mBART model (Open-source)
-   - Trains mBART on combined dataset
-   - Expected output: Trained model checkpoint + performance metrics
-
-5. **`codes/evaluate_models.ipynb`** - Evaluates all models
-   - Tests fine-tuned models and saves results
-   - Calculates BLEU, ChrF, and other metrics
-   - Expected output: `data/results/evaluation_metrics.csv`
-
-6. **`codes/api_comparison.ipynb`** - Compares with commercial APIs
-   - ⚠️ **Requires API keys** for GPT and Gemini
-   - Sends test data to APIs and collects responses
-   - Expected output: `data/results/api_comparison.csv`
-
----
-
-## 📊 Understanding the Results
-
-### Automatic Evaluation Metrics
-
-The project uses three main metrics to measure translation quality:
-
-- **BLEU Score**: Measures how similar generated text is to reference translations (0-100, higher is better)
-- **ChrF Score**: Character-level metric, more forgiving than BLEU (0-100, higher is better)
-- **Human Evaluation**: Real people judge translation quality on fluency and meaning
-
-### Example Output
-
-After running all notebooks, you'll find CSV files in `data/results/` showing:
-
-```
-Model,BLEU,ChrF,Human_Score
-Fine-tuned Qwen,42.3,58.7,4.2/5.0
-Fine-tuned mBART,39.5,56.2,3.9/5.0
-GPT-5.4,45.1,61.2,4.4/5.0
-Gemini-3,44.8,60.9,4.6/5.0
-```
-
----
 
 ## 💡 Key Concepts Explained
 
@@ -181,6 +44,59 @@ Human-annotated data is **expensive and time-consuming** to create. We use AI (N
 - Reduce annotation costs
 
 ---
+
+
+## 🎯 Key Results
+
+After testing and evaluation, here's how different models performed:
+
+| Model | BLEU | ChRF | Human Evaluation |
+|-------|------| -----| -----------------| 
+| GPT-5.4 | 39.26 | 73.75 | 67.76% |
+| Qwen-3 | 30.82 | 70.16 | 72.27% |
+| phi-4 | 2.26 | 26.95 | 0% |
+| mBART | 34.81 | 70.81 | 63.76% |
+| MarianMT | 7.11 | 44.60 | 2.1% |
+
+**What this means:** Our approach successfully improved open-source models to compete with expensive commercial APIs!
+
+---
+
+## 🛠️ Prerequisites
+
+Before running this code, ensure you have:
+
+- **Python 3.8 or higher**
+- **GPU** (NVIDIA CUDA-capable GPU recommended for faster training)
+- **pip** (Python package manager)
+
+### Optional but Recommended:
+- Familiarity with Jupyter Notebooks (all code is in `.ipynb` format)
+- API keys for:
+  - OpenAI GPT API (to reproduce GPT-5.4 results)
+  - Google Gemini API (to reproduce Gemini-3 results)
+
+---
+
+## 🚀 Quick Start Guide
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/SharifMAbdullah/breaking-the-slience.git
+cd breaking-the-slience
+```
+
+
+## 📊 Understanding the Results
+
+### Automatic Evaluation Metrics
+
+The project uses three main metrics to measure translation quality:
+
+- **BLEU Score**: Measures how similar generated text is to reference translations (0-100, higher is better)
+- **ChrF Score**: Character-level metric, more forgiving than BLEU (0-100, higher is better)
+- **Human Evaluation**: Real people judge translation quality on fluency and meaning
 
 ## 🔑 API Setup (Optional - Only for API Comparison)
 
@@ -226,36 +142,11 @@ Want to try different settings?
 
 ---
 
-## 📦 Requirements
-
-Main packages used:
-
-- `torch` / `transformers` - For loading and fine-tuning language models
-- `datasets` - For data handling
-- `nvidia-nemo` - For synthetic gloss generation
-- `evaluate` / `bert-score` - For evaluation metrics
-- `openai` / `google-generativeai` - For API comparisons
-- `pandas`, `numpy` - For data processing
-- `jupyter` - For running notebooks
-
----
 
 ## 🐛 Troubleshooting
 
 ### Issue: "CUDA out of memory"
 - **Solution**: Reduce `batch_size` in the fine-tuning notebooks from 16 to 8 or 4
-
-### Issue: "API key not found"
-- **Solution**: Make sure you've set environment variables correctly:
-```bash
-echo $OPENAI_API_KEY  # Should print your key
-```
-
-### Issue: "Module not found" error
-- **Solution**: Install missing package:
-```bash
-pip install [package-name]
-```
 
 ### Issue: Notebooks run very slowly
 - **Solution**: Make sure you're using a GPU:
@@ -298,11 +189,3 @@ If you use this code, please cite the paper:
 ```
 
 ---
-
-## 📜 License
-
-[Add your license here - e.g., MIT, Apache 2.0, etc.]
-
----
-
-**Happy translating! 🤝**
