@@ -1,5 +1,3 @@
-# Breaking the Silence: Improving Bangla Sign Language Translation with Synthetic Gloss
-
 ## 📋 Project Overview
 
 This repository contains code and experiments from the paper **"Breaking the Silence: A Dataset and Benchmark for Bangla Text-to-Gloss Translation"** ([arXiv:2504.02293](https://arxiv.org/abs/2504.02293)).
@@ -9,32 +7,16 @@ This repository contains code and experiments from the paper **"Breaking the Sil
 **Sign language** is used by deaf people to communicate. **Bangla Sign Language (BdSL)** is the sign language used in Bangladesh. The problem is that sign language is very different from written Bangla—yit can't capture the grammatical nuances of Bangla.
 
 **Gloss** is a simplified, middle-ground representation. It's not full Bangla, but it's the simplified representation of Sign Language. 
-It wokrs as a bridge between sign language and written text.
+It wokrs as a bridge between sign language and written text. For example:
+
+The Bangla sentence: `আমি বৃষ্টিতে ছাতা নিয়ে বাইরে যাই`    
+The gloss would be: `আমি বৃষ্টি ছাতা নিয়ে আসা বাইরে যাওয়া`
 
 This project:
 1. **Generates synthetic gloss** (artificial gloss data) using NVIDIA NeMo Data Designer
 2. **Combines synthetic gloss with human-written gloss** to create a larger training dataset
 3. **Fine-tunes language models** on this combined data to improve their ability to translate sign language to Bangla
 4. **Compares different models** (both open-source and commercial) to see which performs best
-
-## 💡 Key Concepts Explained
-
-### What is "Gloss"?
-
-Imagine this sign language video: [signing] "happy person walking park"
-
-The **gloss** would be: `HAPPY PERSON WALK PARK`
-
-The final **Bangla translation** would be: "একজন সুখী ব্যক্তি পার্কে হাঁটছে" (A happy person is walking in the park)
-
-Gloss is the middle step that makes translation easier.
-
-### What is "Fine-tuning"?
-
-Think of it like specializing a student:
-- A general model is like a student with basic knowledge
-- Fine-tuning is giving that student specialized training in one subject
-- After fine-tuning, the model works much better on sign language translation
 
 ### Why Synthetic Data?
 
@@ -60,6 +42,14 @@ After testing and evaluation, here's how different models performed:
 
 **What this means:** Our approach successfully improved open-source models to compete with expensive commercial APIs!
 
+### Evaluation Metrics
+
+The three main metrics to measure translation quality are:
+
+- **BLEU Score**: Measures how similar generated text is to reference translations (0-100, higher is better)
+- **ChrF Score**: Character-level metric, more forgiving than BLEU (0-100, higher is better)
+- **Human Evaluation**: Real people judge translation quality on fluency and meaning
+
 ---
 
 ## 🛠️ Prerequisites
@@ -78,25 +68,17 @@ Before running this code, ensure you have:
 
 ---
 
-## 🚀 Quick Start Guide
+## Advices for Running the Codes
 
-### Step 1: Clone the Repository
+Though you can use jupyter to run the notebooks, we recommend using
+Google Colab to replicate our results, specifically the `2026-02-23` version
+because it comes with the necessary packages that ensures the code will run without bugs. 
+You can use a past runtime version by selecting it from the Runtime -> Change runtime type dialog, 
+with the "Runtime Version" dropdown.
+Version specific packages have been mentioned inside the `pip install` command.
+Most of the notebooks contain finetuning and evaluation code together, 
+so you can see the performance of the model in a single run. 
 
-```bash
-git clone https://github.com/SharifMAbdullah/breaking-the-slience.git
-cd breaking-the-slience
-```
-
-
-## 📊 Understanding the Results
-
-### Automatic Evaluation Metrics
-
-The project uses three main metrics to measure translation quality:
-
-- **BLEU Score**: Measures how similar generated text is to reference translations (0-100, higher is better)
-- **ChrF Score**: Character-level metric, more forgiving than BLEU (0-100, higher is better)
-- **Human Evaluation**: Real people judge translation quality on fluency and meaning
 
 ## 🔑 API Setup (Optional - Only for API Comparison)
 
@@ -118,35 +100,10 @@ dexport OPENAI_API_KEY="your-api-key-here"
 dexport GOOGLE_API_KEY="your-api-key-here"
 ```
 
----
-
-## 📈 Reproducing Results
-
-To verify the paper's results:
-
-1. **Run notebooks 1-5** as described above
-2. Your metrics should closely match the paper (small variations are normal due to randomness)
-3. **Optionally run notebook 6** with API keys to compare with commercial models
-4. Compare your `data/results/` CSVs with the paper's Table 5 and Table 6
-
----
-
-## 🔄 Modifying the Code
-
-Want to try different settings?
-
-- **Change model architecture**: Modify the model loading code in fine-tune notebooks
-- **Adjust training parameters**: Look for `learning_rate`, `batch_size`, `epochs`
-- **Use different data**: Replace files in `data/human_annotated/`
-- **Add more synthetic data**: Modify `synthetic_gloss_generation.ipynb`
-
----
-
-
 ## 🐛 Troubleshooting
 
 ### Issue: "CUDA out of memory"
-- **Solution**: Reduce `batch_size` in the fine-tuning notebooks from 16 to 8 or 4
+- **Solution**: Reduce `batch_size` in the fine-tuning notebooks
 
 ### Issue: Notebooks run very slowly
 - **Solution**: Make sure you're using a GPU:
@@ -177,14 +134,18 @@ If you find bugs or have questions:
 
 ## 📄 Citation
 
-If you use this code, please cite the paper:
+If you use this code or find anything from the paper useful for your research, 
+please cite the paper:
 
 ```bibtex
-@article{abdullahabdullah2025breaking,
-  title={Breaking the Silence: Improving Bangla Sign Language Translation with Synthetic Gloss},
-  author={Abdullah, Sharif M},
-  journal={arXiv preprint arXiv:2504.02293},
-  year={2025}
+@misc{abdullah2026breakingsilencedatasetbenchmark,
+      title={Breaking the Silence: A Dataset and Benchmark for Bangla Text-to-Gloss Translation}, 
+      author={Sharif Mohammad Abdullah and Abhijit Paul and Shubhashis Roy Dipta and Zarif Masud and Shebuti Rayana and Ahmedul Kabir},
+      year={2026},
+      eprint={2504.02293},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.02293}, 
 }
 ```
 
